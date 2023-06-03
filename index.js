@@ -42,8 +42,10 @@ async function start() {
     
     let rangeHigh = 100;
     let rangeLow = Number(userRangeLow);
+    let numberOfTries = [];
     let guess = Math.round((rangeLow + rangeHigh) / 2);
     let userResponse = await ask(`Is your number ${guess}? Y or N \n`)
+    numberOfTries.push(guess);
 
     while(userResponse == "N" || userResponse == "n" ){
         let rangeModifer = await ask("Is your number lower or higher? L or H \n")
@@ -56,18 +58,24 @@ async function start() {
             rangeHigh = guess;
             rangeLow = rangeLow;
             guess = Math.round((rangeLow + rangeHigh) / 2);
+            numberOfTries.push(guess);
             userResponse = await ask(`Is your number ${guess}? Y or N \n`)
+            
           } else {
             rangeHigh = rangeHigh;
             rangeLow = guess;
             guess = Math.round((rangeLow + rangeHigh) / 2);
+            numberOfTries.push(guess);
             userResponse = await ask(`Is your number ${guess}? Y or N \n`)
+
           }
   } // closes while
     console.log(`I guessed your number, ${guess}!`);
+    console.log(`It took me ${numberOfTries.length} tries to guess your number correctly.`)
 
 
   } // closes else for starting the game 
 
+  
   process.exit();
 } // closes async start function 

@@ -23,7 +23,9 @@ if(startGame === "N" || startGame === "n"){
 
         let secretNumber = Math.floor(Math.random()*100) +1;
         console.log("computer secret number is: " +secretNumber);
+        let numberOfTries = [];
         let humanGuess = await ask("What is your first guess? \n");
+        numberOfTries.push(humanGuess);
         playAgain = "";
         
         while(humanGuess != secretNumber){
@@ -32,14 +34,17 @@ if(startGame === "N" || startGame === "n"){
                 playAgain = await ask(`Do you want to play again? Y or N \n`);
             } else if (humanGuess < secretNumber){
                 humanGuess = await ask(`My number is higher than ${humanGuess}. Guess again. \n`);
+                numberOfTries.push(humanGuess);
             } else if(humanGuess > secretNumber){
                 humanGuess = await ask(`My number is lower than ${humanGuess}. Guess again. \n`);
+                numberOfTries.push(humanGuess);
             } else {
 
             }
         } // closes 2nd while loop
 
         console.log(`You guessed my number correct! It's ${secretNumber}`);
+        console.log(`It took you ${numberOfTries.length} tries to guess correctly.`);
         playAgain = await ask(`Do you want to play again? Y or N \n`);
     
     } // closes first while loop 

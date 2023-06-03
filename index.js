@@ -31,21 +31,27 @@ async function start() {
     console.log("Game Ended.");
     process.exit()
   } else {
-    let guess = Math.floor(Math.random() * 100) + 1;
+    let rangeHigh = 100;
+    let rangeLow = 1;
+    let guess = Math.round((rangeLow + rangeHigh) / 2);
     let userResponse = await ask(`Is your number ${guess}? Y or N \n`)
        while(userResponse == "N" || userResponse == "n" ){
-        let range = await ask("Is your number lower or higher? L or H \n")
-          if(range == "L" || range == "l"){
-            guess = Math.round(guess/2);
+        let rangeModifer = await ask("Is your number lower or higher? L or H \n")
+          if(rangeModifer == "L" || rangeModifer == "l"){
+            rangeHigh = guess;
+            rangeLow = rangeLow;
+            guess = Math.round((rangeLow + rangeHigh) / 2);
             userResponse = await ask(`Is your number ${guess}? Y or N \n`)
           } else {
-            guess = Math.round(guess*1.5);
+            rangeHigh = rangeHigh;
+            rangeLow = guess;
+            guess = Math.round((rangeLow + rangeHigh) / 2);
             userResponse = await ask(`Is your number ${guess}? Y or N \n`)
           }
 
   } // closes while
 
-  console.log("I guessed your number.")
+  console.log(`I guessed your number, ${guess}!`);
 
 } // closes else 
   process.exit();

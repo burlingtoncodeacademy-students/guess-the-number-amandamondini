@@ -22,6 +22,8 @@ async function start() {
 
 async function start() {
   console.log("Let's play a game where you (human) make up a number and I (computer) try to guess it.")
+  let userRangeLow =  await ask("Please set the starting number range for the game. It can be any number greater than 1. For example: 1 to 100 or 26 to 100.\n");
+  console.log(`The range for the game will be ${userRangeLow} to 100.`);
   let secretNumber = await ask("What is your secret number?\nI won't peek, I promise...\n");
   console.log('You entered: ' + secretNumber);
   // Now try and complete the program.
@@ -39,7 +41,7 @@ async function start() {
   } else{
     
     let rangeHigh = 100;
-    let rangeLow = 1;
+    let rangeLow = Number(userRangeLow);
     let guess = Math.round((rangeLow + rangeHigh) / 2);
     let userResponse = await ask(`Is your number ${guess}? Y or N \n`)
 

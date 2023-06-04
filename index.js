@@ -34,13 +34,13 @@ async function start() {
 
     while(playAgain === "Y" || playAgain === "y"){
     
-    let userRangeLow =  await ask("Please set the starting number range for the game. It can be any number greater than 1. For example: 1 to 100 or 26 to 100.\n");
-    console.log(`The range for the game will be ${userRangeLow} to 100.`);
+    let userRangeHigh =  await ask("Please set the high range for the game. It can be any number greater than 1. For example: 1 to 50 or 1 to 250.\n");
+    console.log(`The range for the game will be 1 to ${userRangeHigh}.`);
     let secretNumber = await ask("What is your secret number?\nI won't peek, I promise...\n");
     console.log('You entered: ' + secretNumber);  
 
-    let rangeHigh = 100;
-    let rangeLow = Number(userRangeLow) -1;
+    let rangeHigh = Number(userRangeHigh);
+    let rangeLow = 0;
     let numberOfTries = [];
     let guess = Math.round((rangeLow + rangeHigh) / 2);
     let userResponse = await ask(`Is your number ${guess}? Y or N \n`)
